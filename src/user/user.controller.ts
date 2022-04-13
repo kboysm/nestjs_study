@@ -13,7 +13,6 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PageReq } from 'src/common/api/requset';
 
-import { isObservable } from 'rxjs';
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
