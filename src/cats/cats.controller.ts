@@ -1,51 +1,19 @@
-import {
-  Controller,
-  Get,
-  Query,
-  Post,
-  Body,
-  Put,
-  Param,
-  Delete,
-  HttpCode,
-  Redirect,
-} from '@nestjs/common';
-import { CreateCatDto, UpdateCatDto, ListAllEntities } from './dto';
+import { Controller, Get, Post, Body } from '@nestjs/common';
+import { CreateCatDto } from './dto';
+import { CatsService } from './cats.service';
+import { Cat } from './cat.interface';
 
 @Controller('cats')
 export class CatsController {
-  @Get('ab*cd')
-  // @Redirect('http://localhost:4000/cats', 201)
-  wildcardTest() {
-    return 'This route uses a wildcard';
-  }
+  constructor(private catsService: CatsService) {}
 
   @Post()
-  create(@Body() createCatDto: CreateCatDto) {
-    console.log(createCatDto);
-    return 'This action adds a new cat';
+  async create(@Body() createCatDto: CreateCatDto) {
+    return this.catsService.create(createCatDto);
   }
 
   @Get()
-  findAll(@Query() query: ListAllEntities) {
-    console.log(query);
-    return `This action returns all cats (limit: ${query} items)`;
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    console.log(id);
-    return `This action returns a #${id} cat`;
-  }
-
-  @Put(':id')
-  update(@Param('id') id: string, @Body() updateCatDto: UpdateCatDto) {
-    console.log(id, updateCatDto);
-    return `This action updates a #${id} cat`;
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return `This action removes a #${id} cat`;
+  async findAll(): Promise<Cat[]> {
+    return this.catsService.findAll();
   }
 }
