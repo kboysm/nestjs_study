@@ -1,6 +1,6 @@
 ## 1장 controller 학습 내용
 
-### controller는 요청, 응답을 담당
+### controllers는 요청, 응답을 담당
 
 - @HttpCode 데코레이터를 사용하면 return 및 httpStatusCode가 정상적이지 않다
 - @Redirect 데코레이터를 사용하면 return 값으로 Redirect Url이 리턴된다
@@ -49,3 +49,19 @@ export interface ValidationPipeOptions extends ValidatorOptions {
 ### @Injectable() : 해당 Service가 Nest IoC 컨테이너에서 관리할 수 있는 클래스임을 선언하는 메타데이터를 첨부합니다. -> 컨트롤러에서 생성자를 통해서 주입 -> Dependency injection
 
 ### Property-based injection : 생성자가 아닌 class의 property로 인젝션 주입 -> 최상위 클래스가 여러 공급자에 의존하는 경우 생성자에서 하위 클래스의 super()를 하나하나 선언하는 것이 비효율 적일때 사용 -> 특수한 경우가 아니면 생성자 인젝션 주입을 선호해야함(권장사항)
+
+## 3장 modules 학습 내용
+
+### 각 응용 프로그램에는 루트 모듈인 하나 이상의 모듈이 존재한다. 루트 모듈은 nest가 애플리케이션 그래프를 빌드하는데 사용하는 시작점이다. nest가 모듈과 공급자 관계 및 종속성을 해결하는데 사용하는 내부 데이터 구조이다.
+
+- providers : nest 인젝터에 의해 인스턴스화되고 해당 모듈에서 공유될 수 있는 제공자
+
+- controllers : 인스턴스화해야 하는 해당 모듈에 정의된 컨트롤러
+
+- imports : 다른 모듈에서 export한 공급자를 import한 목록
+
+- exports : 다른 모듈에서 사용할 수 있도록 export한 공급자 목록
+
+### Shared modules : cats모듈에서 사용하는 service를 다른 모듈에서 사용하고 싶은 경우 exports 리스트에 service를 추가하고 사용하고 싶은 다른 모듈에서 imports 리스트에 추가
+
+### 모듈 @Global()는 모듈을 전역 범위로 만든다. 일반적으로 루트 또는 코어 모듈에서 한 번만 등록해야 한다.
