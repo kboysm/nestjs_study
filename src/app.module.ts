@@ -4,10 +4,10 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { CatModule } from './cats/cats.module';
 
-import DbConfig from './config/db.config';
+import { DbConfigModule } from './config/db.config';
 
 @Module({
-  imports: [UserModule, CatModule, DbConfig],
+  imports: [UserModule, CatModule, DbConfigModule],
   controllers: [AppController],
   providers: [AppService],
 })
