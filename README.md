@@ -65,3 +65,9 @@ export interface ValidationPipeOptions extends ValidatorOptions {
 ### Shared modules : cats모듈에서 사용하는 service를 다른 모듈에서 사용하고 싶은 경우 exports 리스트에 service를 추가하고 사용하고 싶은 다른 모듈에서 imports 리스트에 추가
 
 ### 모듈 @Global()는 모듈을 전역 범위로 만든다. 일반적으로 루트 또는 코어 모듈에서 한 번만 등록해야 한다.
+
+## graphql 메모메모
+
+#### 공식문서 graphql config 설정 이후 .graphql 파일이 최소 1개 이상은 존재해야 에러가 발생하지 않는다.
+
+#### ts-morph 모듈을 설치해야 정상 작동한다.

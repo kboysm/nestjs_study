@@ -1,0 +1,11 @@
+type Query {
+  cat(id: ID!): Admin
+  admins(page: Int, size: Int): [Admin]
+}
+
+type Admin {
+  id: ID!
+  name: String
+  age: Int
+  breed: String
+}

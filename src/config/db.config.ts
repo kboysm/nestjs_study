@@ -3,6 +3,8 @@ import { typeOrmConfigAsync } from './typeorm.config';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { graphQLConfigAsync } from './graphql.config';
+import { GraphQLModule } from '@nestjs/graphql';
 // export default TypeOrmModule.forRoot({
 //   type: 'mysql',
 //   host: 'localhost',
@@ -22,6 +24,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       expandVariables: true,
     }),
     TypeOrmModule.forRootAsync(typeOrmConfigAsync),
+    GraphQLModule.forRootAsync(graphQLConfigAsync),
   ],
 })
 export class DbConfigModule {}
