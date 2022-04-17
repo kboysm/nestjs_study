@@ -8,12 +8,12 @@
 /* tslint:disable */
 /* eslint-disable */
 export interface IQuery {
-    cat(id: string): Nullable<Admin> | Promise<Nullable<Admin>>;
-    admins(page?: Nullable<number>, size?: Nullable<number>): Nullable<Nullable<Admin>[]> | Promise<Nullable<Nullable<Admin>[]>>;
+    cat(id?: Nullable<number>): Nullable<Cat> | Promise<Nullable<Cat>>;
+    cats(): Nullable<Nullable<Cat>[]> | Promise<Nullable<Nullable<Cat>[]>>;
 }
 
-export interface Admin {
-    id: string;
+export interface Cat {
+    id: number;
     name?: Nullable<string>;
     age?: Nullable<number>;
     breed?: Nullable<string>;

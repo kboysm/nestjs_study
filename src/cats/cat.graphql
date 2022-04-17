@@ -1,10 +1,10 @@
 type Query {
-  cat(id: ID!): Admin
-  admins(page: Int, size: Int): [Admin]
+  cat(id: Int): Cat
+  cats: [Cat]
 }
 
-type Admin {
-  id: ID!
+type Cat {
+  id: Int!
   name: String
   age: Int
   breed: String

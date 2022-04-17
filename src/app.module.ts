@@ -8,7 +8,6 @@ import { DbConfigModule } from './config/db.config';
 
 @Module({
   imports: [UserModule, CatModule, DbConfigModule],
-  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}

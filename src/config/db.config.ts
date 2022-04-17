@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { graphQLConfigAsync } from './graphql.config';
 import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriverConfig } from '@nestjs/apollo';
 // export default TypeOrmModule.forRoot({
 //   type: 'mysql',
 //   host: 'localhost',
@@ -24,7 +25,7 @@ import { GraphQLModule } from '@nestjs/graphql';
       expandVariables: true,
     }),
     TypeOrmModule.forRootAsync(typeOrmConfigAsync),
-    GraphQLModule.forRootAsync(graphQLConfigAsync),
+    GraphQLModule.forRootAsync<ApolloDriverConfig>(graphQLConfigAsync),
   ],
 })
 export class DbConfigModule {}
