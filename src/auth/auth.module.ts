@@ -5,9 +5,15 @@ import { TestUserModule } from '../testuser/testuser.module';
 import { PassportModule } from '@nestjs/passport';
 import { LocalStrategy } from './local.strategy';
 import { SessionSerializer } from './session.serializer';
+import { JwtModule } from '@nestjs/jwt';
+
 
 @Module({
-  imports: [TestUserModule, PassportModule.register({ session: true })],
-  providers: [AuthService, LocalStrategy, SessionSerializer],
+  imports: [TestUserModule, PassportModule, JwtModule.register({
+    secret: 'test',
+    signOptions: { expiresIn: '60s'}
+  })],
+  providers: [AuthService, LocalStrategy],
+  exports: [ AuthService ]
 })
 export class AuthModule {}
