@@ -2,19 +2,17 @@ import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
 import { LoginUserInput } from './dto';
 import { AuthService } from './auth.service';
 
-
 export type User = {
   id: number;
   name: string;
   username: string;
   password: string;
-}
+};
 
 @Controller('auth')
 export class AuthController {
-  
   constructor(private readonly authService: AuthService) {}
-  
+
   @Post('login')
   // create(@Body() loginUserInput: LoginUserInput) {
   create(@Request() req): any {
@@ -22,7 +20,5 @@ export class AuthController {
     return req.user;
   }
 
-  async findOne() {
-    
-  }
+  async findOne() {}
 }
