@@ -1,6 +1,8 @@
-import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, Request, Res, UseGuards } from '@nestjs/common';
 import { LoginUserInput } from './dto';
 import { AuthService } from './auth.service';
+import { GoogleAuthResult, UseGoogleAuth } from '@nestjs-hybrid-auth/all';
+import { CreateUserDto } from '../user/dto/create-user.dto';
 
 export type User = {
   id: number;
@@ -20,5 +22,18 @@ export class AuthController {
     return req.user;
   }
 
-  async findOne() {}
+  @UseGoogleAuth()
+  @Get('google')
+  loginWithGoogle() {
+    return 'Login with Google';
+  }
+  
+  @UseGoogleAuth()
+  @Get('google/callback')
+  googleCallback(@Req() req, @Res({ passthrough: true }) res) {
+    const result: GoogleAuthResult = req.hybridAuthResult;
+    console.log(result);
+
+    return 'test';
+  }
 }
