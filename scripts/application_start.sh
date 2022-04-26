@@ -1,10 +1,10 @@
 #!/bin/bash
 
-#give permission for everything in the express-app directory
-sudo chmod -R 777 /home/ubuntu/express-app
+#give permission for everything in the nest_study directory
+sudo chmod -R 777 /home/ec2-user/nest_study
 
 #navigate into our working directory where we have all our github files
-cd /home/ubuntu/express-app
+cd /home/ec2-user/nest_study
 
 #add npm and node to path
 export NVM_DIR="$HOME/.nvm"	
