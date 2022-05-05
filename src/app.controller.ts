@@ -9,7 +9,7 @@ export class AppController {
 
   @Get()
   hello() {
-    return "hello";
+    return 'hello';
   }
 
   @UseGuards(LocalAuthGuard)

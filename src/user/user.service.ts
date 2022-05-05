@@ -1,6 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { DeleteResult, InsertResult, Repository, UpdateResult } from 'typeorm';
+import { InjectConnection, InjectRepository } from '@nestjs/typeorm';
+import {
+  DeleteResult,
+  InsertResult,
+  Repository,
+  UpdateResult,
+  Connection,
+  EntityManager,
+} from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -12,20 +19,40 @@ import { PageReq } from 'src/common/api/requset';
 @Injectable()
 export class UserService {
   constructor(
+    @InjectConnection() private readonly connection: Connection,
     @InjectRepository(User)
     private readonly userRepo: Repository<User>,
   ) {}
-
-  create(createUserDto: CreateUserDto): Observable<ObjResponse<User>> {
-    return from(this.userRepo.insert(createUserDto)).pipe(
-      switchMap((result: InsertResult) => {
-        return from(this.findOne(result.identifiers[0].id));
-      }),
-      map((result: ObjResponse<User>) => {
-        result.changeMsg('유저 생성에 성공했습니다.');
-        return result;
-      }),
-    );
+  private async transactionCreateTest(
+    manager: EntityManager,
+    createUserDto: CreateUserDto,
+  ) {
+    return await manager.save(User, createUserDto);
+  }
+  private async transactionErrorTest(
+    manager: EntityManager,
+    createdUser: User,
+  ) {
+    const findedUser = await manager.findOne(User, createdUser.id);
+    console.log('findedUser : ', findedUser);
+    throw new Error('test');
+  }
+  async create(
+    createUserDto: CreateUserDto,
+  ): Promise<User | { status: number; msg: string }> {
+    console.log(createUserDto);
+    try {
+      let result;
+      await this.connection.transaction(async (manager: EntityManager) => {
+        result = await this.transactionCreateTest(manager, createUserDto);
+        console.log('createdUser : ', result);
+        await this.transactionErrorTest(manager, result);
+        console.log('result: ', result);
+      });
+      return result;
+    } catch (err) {
+      return { status: 400, msg: err.message };
+    }
   }
 
   findAll(param: PageReq): Observable<ArrResponse<User>> {
