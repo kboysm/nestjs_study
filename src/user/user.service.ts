@@ -37,7 +37,7 @@ export class UserService {
     console.log('findedUser : ', findedUser);
     throw new Error('test');
   }
-  async create(
+  async create(     
     createUserDto: CreateUserDto,
   ): Promise<User | { status: number; msg: string }> {
     console.log(createUserDto);
